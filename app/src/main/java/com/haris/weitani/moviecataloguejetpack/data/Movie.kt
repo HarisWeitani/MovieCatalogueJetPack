@@ -1,6 +1,11 @@
 package com.haris.weitani.moviecataloguejetpack.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Movie(
+    val picture : Int,
     val name : String,
     val desc : String
-)
+): Parcelable
