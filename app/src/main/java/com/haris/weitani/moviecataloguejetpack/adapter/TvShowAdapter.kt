@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
-import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_layout_item_tv_show.view.*
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
@@ -32,8 +30,9 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
         fun bind( data : TvShow){
             with(itemView){
 
+                iv_tvshow_poster.setImageResource(data.picture)
                 tv_tvshow_title.text = data.name
-                tv_tvshow_description.text = data.desc
+                tv_tvshow_description.setText(data.desc)
 
                 itemView.setOnClickListener {
                     onItemClickCallback?.onItemClicked(data)

@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class TvShow (
     val picture : Int,
     val name : String,
-    val desc : String
+    val desc : Int
 ): Parcelable

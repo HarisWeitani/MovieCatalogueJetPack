@@ -5,17 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.Movie
+import com.haris.weitani.moviecataloguejetpack.detail_view.MovieDetailView
 import kotlinx.android.synthetic.main.rv_layout_item_movie.view.*
+import org.jetbrains.anko.intentFor
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private var listMovie = ArrayList<Movie>()
-    private var onItemClickCallback: OnItemClickCallback? = null
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
@@ -36,18 +34,17 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         fun bind(data: Movie) {
             with(itemView) {
 
+                iv_movie_poster.setImageResource(data.picture)
                 tv_movie_title.text = data.name
-                tv_movie_description.text = data.desc
+                tv_movie_description.setText(data.desc)
 
                 itemView.setOnClickListener {
-                    onItemClickCallback?.onItemClicked(data)
+                    context.startActivity(
+                        context.intentFor<MovieDetailView>(GlobalVal.SELECTED_MOVIE to data.id)
+                    )
                 }
             }
         }
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: Movie)
     }
 
     fun setMovieData(items: ArrayList<Movie>) {

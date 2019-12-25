@@ -16,15 +16,13 @@ class MovieDetailView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        movieData = intent.getParcelableExtra(GlobalVal.SELECTED_MOVIE)
-
         initView()
     }
 
     private fun initView() {
         iv_poster_image.setImageResource(movieData.picture)
         tv_movie_title.text = movieData.name
-        tv_movie_description.text = movieData.desc
+//        tv_movie_description.text = movieData.desc
     }
 
 }

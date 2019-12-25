@@ -2,10 +2,17 @@ package com.haris.weitani.moviecataloguejetpack.common
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.haris.weitani.moviecataloguejetpack.main_activity.MainViewModel
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.adapter.MovieAdapter
+import com.haris.weitani.moviecataloguejetpack.data.Movie
+import com.haris.weitani.moviecataloguejetpack.detail_view.MovieDetailView
+import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class MovieListFragment : Fragment() {
 
@@ -16,12 +23,23 @@ class MovieListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = MovieAdapter()
+        adapter.notifyDataSetChanged()
+
+        rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
+        rv_movie_list.adapter = adapter
+
+        mainViewModel.setMovie()
+        mainViewModel.getMovie().observe(this, Observer {
+            adapter.setMovieData(it)
+        })
     }
 
 }

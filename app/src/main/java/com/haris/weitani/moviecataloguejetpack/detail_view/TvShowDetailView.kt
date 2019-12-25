@@ -25,7 +25,7 @@ class TvShowDetailView : AppCompatActivity() {
         iv_poster_image.setImageResource(tvShowData.picture)
 
         tv_tvshow_title.text = tvShowData.name
-        tv_tvshow_description.text = tvShowData.desc
+//        tv_tvshow_description.text = tvShowData.desc
     }
 
 }
