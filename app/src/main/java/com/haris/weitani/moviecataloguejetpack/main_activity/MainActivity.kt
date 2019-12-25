@@ -1,7 +1,9 @@
-package com.haris.weitani.moviecataloguejetpack
+package com.haris.weitani.moviecataloguejetpack.main_activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.haris.weitani.moviecataloguejetpack.MainSectionPagerAdapter
+import com.haris.weitani.moviecataloguejetpack.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,10 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapterMain = MainSectionPagerAdapter(
-            this,
-            supportFragmentManager
-        )
+        adapterMain =
+            MainSectionPagerAdapter(
+                this,
+                supportFragmentManager
+            )
         view_pager.adapter = adapterMain
         tabs.setupWithViewPager(view_pager)
 
