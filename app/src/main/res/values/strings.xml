@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MovieCatalogueJetPack</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+
+    <string name="tab1_title" translatable="false">Movie</string>
+    <string name="tab2_title" translatable="false">TV Show</string>
+
+    <string name="a_star_is_born" translatable="false">Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.</string>
 </resources>
