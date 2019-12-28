@@ -28,7 +28,7 @@ class MainViewModelTest {
     fun getMovie() {
         mainViewModel.setMovie()
         mainViewModel.getMovie().observeForever {
-            assertEquals(it.size,10)
+            assertEquals(10,it.size)
         }
     }
 
@@ -36,7 +36,7 @@ class MainViewModelTest {
     fun getTvShow() {
         mainViewModel.setTvShow()
         mainViewModel.getTvShow().observeForever{
-            assertEquals(it.size,10)
+            assertEquals(10,it.size)
         }
     }
 }
