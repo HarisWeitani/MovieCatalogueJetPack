@@ -5,17 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.detail_view.TvShowDetailView
 import kotlinx.android.synthetic.main.rv_layout_item_tv_show.view.*
+import org.jetbrains.anko.intentFor
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
     private var listTvShow = ArrayList<TvShow>()
-    private var onItemClickCallback: OnItemClickCallback? = null
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder =
         TvShowViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.rv_layout_item_tv_show,parent,false))
@@ -35,14 +33,12 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                 tv_tvshow_description.setText(data.desc)
 
                 itemView.setOnClickListener {
-                    onItemClickCallback?.onItemClicked(data)
+                    context.startActivity(
+                        context.intentFor<TvShowDetailView>(GlobalVal.SELECTED_TV_SHOW to data.id)
+                    )
                 }
             }
         }
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: TvShow)
     }
 
     fun setTvShowData(items : ArrayList<TvShow>){

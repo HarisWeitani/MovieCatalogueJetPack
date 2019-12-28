@@ -31,12 +31,6 @@ class TvShowListFragment : Fragment() {
         adapter = TvShowAdapter()
         adapter.notifyDataSetChanged()
 
-        adapter.setOnItemClickCallback(object : TvShowAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: TvShow) {
-
-            }
-        })
-
         rv_tvshow_list.layoutManager = LinearLayoutManager(requireContext())
         rv_tvshow_list.adapter = adapter
 

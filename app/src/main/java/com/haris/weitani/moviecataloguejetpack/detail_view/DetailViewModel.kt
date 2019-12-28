@@ -1,7 +1,9 @@
 package com.haris.weitani.moviecataloguejetpack.detail_view
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.haris.weitani.moviecataloguejetpack.data.DummyData
 import com.haris.weitani.moviecataloguejetpack.data.Movie
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
 
@@ -10,20 +12,28 @@ class DetailViewModel : ViewModel() {
     private val movie = MutableLiveData<Movie>()
     private val tvShow = MutableLiveData<TvShow>()
 
-    internal fun setMovieById(){
-
+    internal fun setMovieById(movieId: Int) {
+        for (data in DummyData.generateDummyMovies()) {
+            if (data.id == movieId) {
+                movie.postValue(data)
+            }
+        }
     }
 
-    internal fun getMovieById(){
-
+    internal fun getMovieById(): LiveData<Movie> {
+        return movie
     }
 
-    internal fun setTvShowById(){
-
+    internal fun setTvShowById(tvShowId: Int) {
+        for (data in DummyData.generateDummyTvShows()) {
+            if (data.id == tvShowId) {
+                tvShow.postValue(data)
+            }
+        }
     }
 
-    internal fun getTvShowById(){
-
+    internal fun getTvShowById(): LiveData<TvShow> {
+        return tvShow
     }
 
 
