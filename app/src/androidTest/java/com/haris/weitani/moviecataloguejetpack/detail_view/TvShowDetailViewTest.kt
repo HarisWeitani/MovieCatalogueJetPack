@@ -36,10 +36,10 @@ class TvShowDetailViewTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.tv_tvshow_title)).check(
             ViewAssertions.matches(ViewMatchers.isDisplayed())
-        )
+        ).check(ViewAssertions.matches(ViewMatchers.withText(tvShowDummy.name)))
         Espresso.onView(ViewMatchers.withId(R.id.tv_tvshow_description)).check(
             ViewAssertions.matches(ViewMatchers.isDisplayed())
-        )
+        ).check(ViewAssertions.matches(ViewMatchers.withText(tvShowDummy.name)))
     }
 
 }
