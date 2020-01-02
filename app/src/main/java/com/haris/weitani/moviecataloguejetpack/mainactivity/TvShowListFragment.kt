@@ -6,10 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.haris.weitani.moviecataloguejetpack.main_activity.MainViewModel
+import com.haris.weitani.moviecataloguejetpack.mainactivity.MainViewModel
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.adapter.TvShowAdapter
-import com.haris.weitani.moviecataloguejetpack.data.TvShow
 import kotlinx.android.synthetic.main.fragment_tv_show_list.*
 
 class TvShowListFragment : Fragment() {

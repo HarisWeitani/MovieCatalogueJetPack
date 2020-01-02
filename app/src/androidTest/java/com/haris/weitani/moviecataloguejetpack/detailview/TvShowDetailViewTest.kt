@@ -1,4 +1,4 @@
-package com.haris.weitani.moviecataloguejetpack.detail_view
+package com.haris.weitani.moviecataloguejetpack.detailview
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,6 @@ import androidx.test.rule.ActivityTestRule
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.utils.FakeDummyData
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 

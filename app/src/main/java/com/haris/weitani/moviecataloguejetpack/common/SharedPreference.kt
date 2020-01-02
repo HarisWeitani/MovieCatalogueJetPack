@@ -29,7 +29,7 @@ class SharedPreference(val context: Context) {
 
         val editor: SharedPreferences.Editor = sharedPref.edit()
 
-        editor.putBoolean(KEY_NAME, status!!)
+        editor.putBoolean(KEY_NAME, status)
 
         editor.apply()
     }

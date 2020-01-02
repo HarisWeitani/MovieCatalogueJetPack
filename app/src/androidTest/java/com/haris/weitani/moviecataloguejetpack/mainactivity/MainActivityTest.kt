@@ -1,15 +1,10 @@
-package com.haris.weitani.moviecataloguejetpack.main_activity
+package com.haris.weitani.moviecataloguejetpack.mainactivity
 
-import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.pressBack
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
@@ -18,7 +13,6 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.hamcrest.TypeSafeMatcher
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 

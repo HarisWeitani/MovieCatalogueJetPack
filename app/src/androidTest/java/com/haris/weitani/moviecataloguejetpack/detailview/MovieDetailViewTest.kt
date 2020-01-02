@@ -1,4 +1,4 @@
-package com.haris.weitani.moviecataloguejetpack.detail_view
+package com.haris.weitani.moviecataloguejetpack.detailview
 
 import android.content.Context
 import android.content.Intent
@@ -23,7 +23,7 @@ class MovieDetailViewTest {
         object : ActivityTestRule<MovieDetailView>(MovieDetailView::class.java) {
             override fun getActivityIntent(): Intent {
                 val targetContext: Context =
-                    InstrumentationRegistry.getInstrumentation().getTargetContext()
+                    InstrumentationRegistry.getInstrumentation().targetContext
                 val result = Intent(targetContext, MovieDetailView::class.java)
                 result.putExtra(GlobalVal.SELECTED_MOVIE, movieDummy.id)
                 return result

@@ -8,5 +8,6 @@ class GlobalVal {
 
         const val SELECTED_TV_SHOW = "SELECTED_TV_SHOW"
 
+        const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w185"
     }
 }

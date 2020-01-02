@@ -1,16 +1,11 @@
-package com.haris.weitani.moviecataloguejetpack.main_activity
+package com.haris.weitani.moviecataloguejetpack.mainactivity
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.haris.weitani.moviecataloguejetpack.data.Movie
 import org.junit.Before
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
-import org.mockito.Mockito
 
 class MainViewModelTest {
 

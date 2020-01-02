@@ -1,4 +1,4 @@
-package com.haris.weitani.moviecataloguejetpack.detail_view
+package com.haris.weitani.moviecataloguejetpack.detailview
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.haris.weitani.moviecataloguejetpack.R

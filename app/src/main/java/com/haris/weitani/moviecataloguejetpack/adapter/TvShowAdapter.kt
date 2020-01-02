@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
-import com.haris.weitani.moviecataloguejetpack.detail_view.TvShowDetailView
+import com.haris.weitani.moviecataloguejetpack.detailview.TvShowDetailView
 import kotlinx.android.synthetic.main.rv_layout_item_tv_show.view.*
 import org.jetbrains.anko.intentFor
 

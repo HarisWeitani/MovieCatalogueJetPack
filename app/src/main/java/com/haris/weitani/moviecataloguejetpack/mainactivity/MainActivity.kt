@@ -1,4 +1,4 @@
-package com.haris.weitani.moviecataloguejetpack.main_activity
+package com.haris.weitani.moviecataloguejetpack.mainactivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

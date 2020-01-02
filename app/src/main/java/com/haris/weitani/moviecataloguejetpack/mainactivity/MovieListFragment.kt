@@ -2,16 +2,13 @@ package com.haris.weitani.moviecataloguejetpack.common
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.haris.weitani.moviecataloguejetpack.main_activity.MainViewModel
+import com.haris.weitani.moviecataloguejetpack.mainactivity.MainViewModel
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.adapter.MovieAdapter
-import com.haris.weitani.moviecataloguejetpack.data.Movie
-import com.haris.weitani.moviecataloguejetpack.detail_view.MovieDetailView
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class MovieListFragment : Fragment() {

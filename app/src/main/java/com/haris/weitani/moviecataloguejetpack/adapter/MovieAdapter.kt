@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.Movie
-import com.haris.weitani.moviecataloguejetpack.detail_view.MovieDetailView
+import com.haris.weitani.moviecataloguejetpack.detailview.MovieDetailView
 import kotlinx.android.synthetic.main.rv_layout_item_movie.view.*
 import org.jetbrains.anko.intentFor
 

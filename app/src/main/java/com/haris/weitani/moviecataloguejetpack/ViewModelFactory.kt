@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
-import com.haris.weitani.moviecataloguejetpack.detail_view.DetailViewModel
+import com.haris.weitani.moviecataloguejetpack.detailview.DetailViewModel
 import com.haris.weitani.moviecataloguejetpack.di.Injection
-import com.haris.weitani.moviecataloguejetpack.main_activity.MainViewModel
+import com.haris.weitani.moviecataloguejetpack.mainactivity.MainViewModel
 
 class ViewModelFactory private constructor(catalogueRepository: CatalogueRepository) :
     NewInstanceFactory() {

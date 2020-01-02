@@ -1,4 +1,4 @@
-package com.haris.weitani.moviecataloguejetpack.detail_view
+package com.haris.weitani.moviecataloguejetpack.detailview
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
