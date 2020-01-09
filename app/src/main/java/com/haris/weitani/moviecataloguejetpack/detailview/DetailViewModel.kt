@@ -3,11 +3,14 @@ package com.haris.weitani.moviecataloguejetpack.detailview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
 import com.haris.weitani.moviecataloguejetpack.data.DummyData
 import com.haris.weitani.moviecataloguejetpack.data.Movie
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
+
+    private val catalogueRepository = mCatalogueRepository
 
     private val movie = MutableLiveData<Movie>()
     private val tvShow = MutableLiveData<TvShow>()

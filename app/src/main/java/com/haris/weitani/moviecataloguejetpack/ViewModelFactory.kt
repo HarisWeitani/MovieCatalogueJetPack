@@ -8,14 +8,10 @@ import com.haris.weitani.moviecataloguejetpack.detailview.DetailViewModel
 import com.haris.weitani.moviecataloguejetpack.di.Injection
 import com.haris.weitani.moviecataloguejetpack.mainactivity.MainViewModel
 
-class ViewModelFactory private constructor(catalogueRepository: CatalogueRepository) :
+class ViewModelFactory (catalogueRepository: CatalogueRepository) :
     NewInstanceFactory() {
 
-    init {
-        mCatalogueRepository = catalogueRepository
-    }
-
-    private val mCatalogueRepository: CatalogueRepository
+    private val mCatalogueRepository = catalogueRepository
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {

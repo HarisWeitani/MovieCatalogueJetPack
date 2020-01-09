@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 data class ResponseTvShows(
     var page: Int? = 0,
-    var results: List<ResultTvShow?>? = listOf(),
+    var results: List<ResultTvShow>? = listOf(),
     var total_pages: Int? = 0,
     var total_results: Int? = 0
 )

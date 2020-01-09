@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 data class ResponseGetMovie(
     var page: Int? = 0,
-    var results: List<ResultGetMovie?>? = listOf(),
+    var results: List<ResultGetMovie>? = listOf(),
     var total_pages: Int? = 0,
     var total_results: Int? = 0
 )
