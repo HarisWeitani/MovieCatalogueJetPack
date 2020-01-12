@@ -3,11 +3,13 @@ package com.haris.weitani.moviecataloguejetpack.utils
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.data.Movie
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 
 class FakeDummyData {
     companion object {
 
-        fun generateDummyMovies(): ArrayList<Movie> {
+/*        fun generateDummyMovies(): ArrayList<Movie> {
             val tempMovieList = ArrayList<Movie>()
             tempMovieList.add(Movie(0, R.drawable.poster_a_start_is_born,"A Star Is Born", R.string.a_star_is_born))
             tempMovieList.add(Movie(1, R.drawable.poster_alita,"Alita Battle Angel", R.string.alita_battle_angel))
@@ -34,6 +36,20 @@ class FakeDummyData {
             tempTvShowList.add(TvShow(7,R.drawable.poster_hanna,"Hanna",R.string.hanna))
             tempTvShowList.add(TvShow(8,R.drawable.poster_iron_fist,"Iron Fist",R.string.iron_fist))
             tempTvShowList.add(TvShow(9,R.drawable.poster_naruto_shipudden,"Naruto Shippuden",R.string.naruto_shippuden))
+            return tempTvShowList
+        }*/
+
+        fun generateDummyMovies(): ArrayList<ResultGetMovie> {
+            val tempMovieList = ArrayList<ResultGetMovie>()
+            tempMovieList.add(ResultGetMovie(419704,"The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.",
+                null,null,"Ad Astra",false))
+            return tempMovieList
+        }
+
+        fun generateDummyTvShows() : ArrayList<ResultTvShow>{
+            val tempTvShowList = ArrayList<ResultTvShow>()
+            tempTvShowList.add(ResultTvShow(44217,"Vikings","The adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the sagas of Ragnar's band of Viking brothers and his family, as he rises to become King of the Viking tribes. As well as being a fearless warrior, Ragnar embodies the Norse traditions of devotion to the gods. Legend has it that he was a direct descendant of Odin, the god of war and warriors."
+                ,null,null,false))
             return tempTvShowList
         }
 
