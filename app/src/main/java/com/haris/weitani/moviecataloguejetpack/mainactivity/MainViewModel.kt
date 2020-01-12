@@ -18,7 +18,11 @@ class MainViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
     val movies : LiveData<Resource<List<ResultGetMovie>?>?>? = catalogueRepository.getPopularMovies()
     val tvShows : LiveData<Resource<List<ResultTvShow>?>?>? = catalogueRepository.getPopularTvShows()
 
-    private val movieList = MutableLiveData<ArrayList<Movie>>()
+
+    /**
+     * Deprecated
+     */
+/*    private val movieList = MutableLiveData<ArrayList<Movie>>()
     private val tvShowList = MutableLiveData<ArrayList<TvShow>>()
 
     internal fun setMovie(){
@@ -43,11 +47,5 @@ class MainViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
 
     private fun initTvShowDummyData() : ArrayList<TvShow>{
         return DummyData.generateDummyTvShows()
-    }
-
-
-
-
-
-
+    }*/
 }

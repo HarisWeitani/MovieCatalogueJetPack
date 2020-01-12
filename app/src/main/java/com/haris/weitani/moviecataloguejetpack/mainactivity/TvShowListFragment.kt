@@ -39,7 +39,9 @@ class TvShowListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        isLoading(true)
         if (activity != null) {
+
             mainViewModel = obtainViewModel(activity!!)
 
             adapter = TvShowAdapter()
@@ -52,17 +54,26 @@ class TvShowListFragment : Fragment() {
                 if (it != null) {
                     when (it.status) {
                         Status.SUCCESS -> {
+                            isLoading(false)
                             adapter.setTvShowData(it.data as ArrayList<ResultTvShow>)
                         }
                         Status.ERROR -> {
-
+                            isLoading(false)
                         }
                         Status.LOADING -> {
-
+                            isLoading(true)
                         }
                     }
                 }
             })
+        }
+    }
+
+    private fun isLoading(status : Boolean){
+        if(status){
+            progressBar.visibility = View.VISIBLE
+        }else{
+            progressBar.visibility = View.GONE
         }
     }
 }

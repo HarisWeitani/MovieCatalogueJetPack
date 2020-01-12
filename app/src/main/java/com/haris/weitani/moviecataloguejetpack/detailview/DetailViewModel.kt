@@ -36,7 +36,7 @@ class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
     /**
      * Deprecated
      */
-    private val movie = MutableLiveData<Movie>()
+/*    private val movie = MutableLiveData<Movie>()
     private val tvShow = MutableLiveData<TvShow>()
 
     internal fun setMovieById(movieId: Int) {
@@ -61,7 +61,6 @@ class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
 
     internal fun getTvShowById(): LiveData<TvShow> {
         return tvShow
-    }
-
+    }*/
 
 }

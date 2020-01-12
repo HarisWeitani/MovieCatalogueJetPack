@@ -1,6 +1,7 @@
 package com.haris.weitani.moviecataloguejetpack.mainactivity
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -38,6 +39,7 @@ class MovieListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        isLoading(true)
         if (activity != null) {
             mainViewModel = obtainViewModel(activity!!)
             adapter = MovieAdapter()
@@ -50,17 +52,26 @@ class MovieListFragment : Fragment() {
                 if (it != null) {
                     when (it.status) {
                         Status.SUCCESS -> {
+                            isLoading(false)
                             adapter.setMovieData(it.data as ArrayList<ResultGetMovie>)
                         }
                         Status.ERROR -> {
-
+                            isLoading(false)
                         }
                         Status.LOADING -> {
-
+                            isLoading(true)
                         }
                     }
                 }
             })
+        }
+    }
+
+    private fun isLoading(status : Boolean){
+        if(status){
+            progressBar.visibility = View.VISIBLE
+        }else{
+            progressBar.visibility = View.GONE
         }
     }
 }

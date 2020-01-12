@@ -2,6 +2,7 @@ package com.haris.weitani.moviecataloguejetpack.detailview
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -42,20 +43,22 @@ class MovieDetailView : AppCompatActivity() {
     }
 
     private fun initViewModel(){
+        isLoading(true)
         detailViewModel = obtainViewModel(this)
         detailViewModel.setMovieId(movieId.toLong())
         detailViewModel.movies?.observe(this, Observer {
             if(it!= null){
                 when(it.status){
                     Status.SUCCESS ->{
+                        isLoading(false)
                         movieData = it.data!!
                         initView()
                     }
                     Status.ERROR ->{
-
+                        isLoading(false)
                     }
                     Status.LOADING ->{
-
+                        isLoading(true)
                     }
                 }
             }
@@ -70,4 +73,11 @@ class MovieDetailView : AppCompatActivity() {
         tv_movie_description.text = movieData.overview
     }
 
+    private fun isLoading(status : Boolean){
+        if(status){
+            progressBar.visibility = View.VISIBLE
+        }else{
+            progressBar.visibility = View.GONE
+        }
+    }
 }
