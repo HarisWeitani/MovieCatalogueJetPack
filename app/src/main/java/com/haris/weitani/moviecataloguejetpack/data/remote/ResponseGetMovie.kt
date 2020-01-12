@@ -13,7 +13,6 @@ data class ResponseGetMovie(
     var total_results: Int? = 0
 )
 
-@Parcelize
 @Entity
 data class ResultGetMovie(
     @PrimaryKey var id: Int,
@@ -30,4 +29,4 @@ data class ResultGetMovie(
     @ColumnInfo(name = "vote_average")var vote_average: Double? = 0.0,
     @ColumnInfo(name = "vote_count")var vote_count: Int? = 0,
     @ColumnInfo(name = "is_favorite") var is_favorite : Boolean? = false
-): Parcelable
+)

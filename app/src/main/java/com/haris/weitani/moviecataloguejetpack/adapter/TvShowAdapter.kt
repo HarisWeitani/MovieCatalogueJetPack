@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 import com.haris.weitani.moviecataloguejetpack.detailview.TvShowDetailView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_layout_item_tv_show.view.*
 import org.jetbrains.anko.intentFor
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
-    private var listTvShow = ArrayList<TvShow>()
+    private var listTvShow = ArrayList<ResultTvShow>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder =
         TvShowViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.rv_layout_item_tv_show,parent,false))
@@ -25,12 +27,15 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     }
 
     inner class TvShowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        fun bind( data : TvShow){
+        fun bind( data : ResultTvShow){
             with(itemView){
 
-                iv_tvshow_poster.setImageResource(data.picture)
+                Picasso.get()
+                    .load(GlobalVal.POSTER_BASE_URL+data.poster_path)
+                    .into(iv_tvshow_poster)
+
                 tv_tvshow_title.text = data.name
-                tv_tvshow_description.setText(data.desc)
+                tv_tvshow_description.text = data.overview
 
                 itemView.setOnClickListener {
                     context.startActivity(
@@ -41,7 +46,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
         }
     }
 
-    fun setTvShowData(items : ArrayList<TvShow>){
+    fun setTvShowData(items : ArrayList<ResultTvShow>){
         listTvShow.clear()
         listTvShow.addAll(items)
         notifyDataSetChanged()

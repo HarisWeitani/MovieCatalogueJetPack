@@ -11,32 +11,40 @@ import com.haris.weitani.moviecataloguejetpack.vo.Resource
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CatalogueRepository(mLocalRepository: LocalRepository, mRemoteRepository: RemoteRepository, mAppExecutors: AppExecutors)
-    : CatalogueDataSource
-{
+class CatalogueRepository(
+    mLocalRepository: LocalRepository,
+    mRemoteRepository: RemoteRepository,
+    mAppExecutors: AppExecutors
+) : CatalogueDataSource {
 
     private val localRepository = mLocalRepository
     private val remoteRepository = mRemoteRepository
     private val appExecutors = mAppExecutors
 
-    companion object{
+    companion object {
         @Volatile
-        lateinit var INSTANCE : CatalogueRepository
+        var INSTANCE: CatalogueRepository? = null
 
-        fun getInstance(localRepository: LocalRepository, remoteRepository: RemoteRepository, appExecutors : AppExecutors) : CatalogueRepository{
-            if(INSTANCE == null){
-                synchronized(CatalogueRepository::class.java){
-                    if(INSTANCE == null){
-                        INSTANCE = CatalogueRepository(localRepository,remoteRepository,appExecutors)
+        fun getInstance(
+            localRepository: LocalRepository,
+            remoteRepository: RemoteRepository,
+            appExecutors: AppExecutors
+        ): CatalogueRepository {
+            if (INSTANCE == null) {
+                synchronized(CatalogueRepository::class.java) {
+                    if (INSTANCE == null) {
+                        INSTANCE =
+                            CatalogueRepository(localRepository, remoteRepository, appExecutors)
                     }
                 }
             }
-            return INSTANCE
+            return INSTANCE!!
         }
     }
 
     override fun getPopularMovies(): LiveData<Resource<List<ResultGetMovie>?>?>? {
-        return object : NetworkBoundResource<List<ResultGetMovie>, List<ResultGetMovie>>(appExecutors){
+        return object :
+            NetworkBoundResource<List<ResultGetMovie>, List<ResultGetMovie>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<ResultGetMovie>?>? {
                 return localRepository.getPopularMovies()
             }
@@ -52,7 +60,7 @@ class CatalogueRepository(mLocalRepository: LocalRepository, mRemoteRepository: 
             override fun saveCallResult(datas: List<ResultGetMovie>?) {
                 val movieList = ArrayList<ResultGetMovie>()
                 if (datas != null) {
-                    for(data in datas){
+                    for (data in datas) {
                         movieList.add(data)
                     }
                     localRepository.insertMovies(movieList)
@@ -62,8 +70,28 @@ class CatalogueRepository(mLocalRepository: LocalRepository, mRemoteRepository: 
         }.asLiveData()
     }
 
+    override fun getMoviesById(movieId: Long): LiveData<Resource<ResultGetMovie?>?>? {
+        return object : NetworkBoundResource<ResultGetMovie, ResultGetMovie>(appExecutors) {
+            override fun loadFromDB(): LiveData<ResultGetMovie?>? {
+                return localRepository.getMoviesById(movieId)
+            }
+
+            override fun shouldFetch(data: ResultGetMovie?): Boolean? {
+                return data == null
+            }
+
+            override fun createCall(): LiveData<ApiResponse<ResultGetMovie?>?>? {
+                return remoteRepository.getMovieById(movieId)
+            }
+
+            override fun saveCallResult(data: ResultGetMovie?) {
+                //do nothing
+            }
+        }.asLiveData()
+    }
+
     override fun getPopularTvShows(): LiveData<Resource<List<ResultTvShow>?>?>? {
-        return object : NetworkBoundResource<List<ResultTvShow>,List<ResultTvShow>>(appExecutors){
+        return object : NetworkBoundResource<List<ResultTvShow>, List<ResultTvShow>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<ResultTvShow>?>? {
                 return localRepository.getPopularTvShows()
             }
@@ -78,13 +106,34 @@ class CatalogueRepository(mLocalRepository: LocalRepository, mRemoteRepository: 
 
             override fun saveCallResult(datas: List<ResultTvShow>?) {
                 val tvShowList = ArrayList<ResultTvShow>()
-                if(datas != null){
-                    for(data in datas){
+                if (datas != null) {
+                    for (data in datas) {
                         tvShowList.add(data)
                     }
                     localRepository.insertTvShows(tvShowList)
                 }
             }
+        }.asLiveData()
+    }
+
+    override fun getTvShowsById(tvShowId: Long): LiveData<Resource<ResultTvShow?>?>? {
+        return object : NetworkBoundResource<ResultTvShow,ResultTvShow>(appExecutors){
+            override fun loadFromDB(): LiveData<ResultTvShow?>? {
+                return localRepository.getTvShowById(tvShowId)
+            }
+
+            override fun shouldFetch(data: ResultTvShow?): Boolean? {
+                return data == null
+            }
+
+            override fun createCall(): LiveData<ApiResponse<ResultTvShow?>?>? {
+                return remoteRepository.getTvShowById(tvShowId)
+            }
+
+            override fun saveCallResult(data: ResultTvShow?) {
+                //do nothing
+            }
+
         }.asLiveData()
     }
 

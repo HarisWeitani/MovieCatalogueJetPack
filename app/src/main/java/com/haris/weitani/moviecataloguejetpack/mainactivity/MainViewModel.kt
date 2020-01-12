@@ -7,10 +7,16 @@ import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
 import com.haris.weitani.moviecataloguejetpack.data.DummyData
 import com.haris.weitani.moviecataloguejetpack.data.Movie
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
+import com.haris.weitani.moviecataloguejetpack.vo.Resource
 
 class MainViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
 
     private val catalogueRepository = mCatalogueRepository
+
+    val movies : LiveData<Resource<List<ResultGetMovie>?>?>? = catalogueRepository.getPopularMovies()
+    val tvShows : LiveData<Resource<List<ResultTvShow>?>?>? = catalogueRepository.getPopularTvShows()
 
     private val movieList = MutableLiveData<ArrayList<Movie>>()
     private val tvShowList = MutableLiveData<ArrayList<TvShow>>()
@@ -38,6 +44,8 @@ class MainViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
     private fun initTvShowDummyData() : ArrayList<TvShow>{
         return DummyData.generateDummyTvShows()
     }
+
+
 
 
 

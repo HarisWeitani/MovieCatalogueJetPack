@@ -9,6 +9,10 @@ interface CatalogueDataSource{
 
     fun getPopularMovies() : LiveData<Resource<List<ResultGetMovie>?>?>?
 
+    fun getMoviesById(movieId : Long) : LiveData<Resource<ResultGetMovie?>?>?
+
     fun getPopularTvShows() : LiveData<Resource<List<ResultTvShow>?>?>?
+
+    fun getTvShowsById(tvShowId : Long) : LiveData<Resource<ResultTvShow?>?>?
 
 }

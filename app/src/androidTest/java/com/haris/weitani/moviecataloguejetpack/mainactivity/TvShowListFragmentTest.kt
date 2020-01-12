@@ -7,7 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.RecyclerViewItemCountAssertion
-import com.haris.weitani.moviecataloguejetpack.common.TvShowListFragment
 import com.haris.weitani.moviecataloguejetpack.testing.SingleFragmentActivity
 import org.junit.Before
 import org.junit.Rule

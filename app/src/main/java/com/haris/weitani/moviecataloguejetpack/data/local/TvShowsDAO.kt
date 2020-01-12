@@ -20,4 +20,7 @@ interface TvShowsDAO {
 
     @Delete
     fun deleteTvShows(vararg tvShows: ResultTvShow)
+
+    @Query("SELECT * FROM ResultTvShow WHERE id = :id")
+    fun selectById(id: Long) : ResultTvShow
 }

@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.Movie
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 import com.haris.weitani.moviecataloguejetpack.detailview.MovieDetailView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_layout_item_movie.view.*
 import org.jetbrains.anko.intentFor
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listMovie = ArrayList<Movie>()
+    private var listMovie = ArrayList<ResultGetMovie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
@@ -31,12 +33,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: Movie) {
+        fun bind(data: ResultGetMovie) {
             with(itemView) {
 
-                iv_movie_poster.setImageResource(data.picture)
-                tv_movie_title.text = data.name
-                tv_movie_description.setText(data.desc)
+                Picasso.get()
+                    .load(GlobalVal.POSTER_BASE_URL + data.poster_path)
+                    .into(iv_movie_poster)
+
+                tv_movie_title.text = data.title
+                tv_movie_description.text = data.overview
 
                 itemView.setOnClickListener {
                     context.startActivity(
@@ -47,7 +52,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         }
     }
 
-    fun setMovieData(items: ArrayList<Movie>) {
+    fun setMovieData(items: ArrayList<ResultGetMovie>) {
         listMovie.clear()
         listMovie.addAll(items)
         notifyDataSetChanged()

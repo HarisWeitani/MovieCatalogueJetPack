@@ -26,5 +26,5 @@ interface MovieDAO {
     fun selectAllFavMovie() : Cursor
 
     @Query("SELECT * FROM ResultGetMovie WHERE id = :id")
-    fun selectById(id: Int) : Cursor
+    fun selectById(id: Long) : ResultGetMovie
 }

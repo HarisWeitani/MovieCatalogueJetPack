@@ -1,20 +1,35 @@
 package com.haris.weitani.moviecataloguejetpack.detailview
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.ViewModelFactory
 import com.haris.weitani.moviecataloguejetpack.common.GlobalVal
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
+import com.haris.weitani.moviecataloguejetpack.vo.Status
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_tv_show_detail_view.*
 
 class TvShowDetailView : AppCompatActivity() {
 
-    private lateinit var tvShow: TvShow
+    private lateinit var tvShow: ResultTvShow
     private lateinit var detailViewModel: DetailViewModel
 
     private var tvShowId: Int = 0
+
+    companion object {
+
+        fun newInstance(): Activity = TvShowDetailView()
+
+        private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
+            val factory: ViewModelFactory? = ViewModelFactory.getInstance(activity.application)
+            return ViewModelProviders.of(activity, factory).get(DetailViewModel::class.java)
+        }
+    }
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +42,33 @@ class TvShowDetailView : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        detailViewModel.setTvShowById(tvShowId)
-        detailViewModel.getTvShowById().observe(this, Observer {
-            tvShow = it
-            initView()
+        detailViewModel = obtainViewModel(this)
+        detailViewModel.setTvShowId(tvShowId.toLong())
+        detailViewModel.tvShows?.observe(this, Observer {
+            if(it!= null){
+                when(it.status){
+                    Status.SUCCESS ->{
+                        tvShow = it.data!!
+                        initView()
+                    }
+                    Status.ERROR ->{
+
+                    }
+                    Status.LOADING ->{
+
+                    }
+                }
+            }
         })
     }
 
     private fun initView() {
-        iv_poster_image.setImageResource(tvShow.picture)
+        Picasso.get()
+            .load(GlobalVal.POSTER_BASE_URL + tvShow.poster_path)
+            .into(iv_poster_image)
+
         tv_tvshow_title.text = tvShow.name
-        tv_tvshow_description.setText(tvShow.desc)
+        tv_tvshow_description.text = tvShow.overview
     }
 
 }

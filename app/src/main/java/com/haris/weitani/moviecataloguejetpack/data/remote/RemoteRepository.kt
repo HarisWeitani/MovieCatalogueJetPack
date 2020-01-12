@@ -14,12 +14,12 @@ import retrofit2.Response
 class RemoteRepository {
 
     companion object {
-        lateinit var INSTANCE: RemoteRepository
+        var INSTANCE: RemoteRepository? = null
         fun getInstance(): RemoteRepository {
             if (INSTANCE == null) {
                 INSTANCE = RemoteRepository()
             }
-            return INSTANCE
+            return INSTANCE as RemoteRepository
         }
 
         private fun networkLogging(string: String) {
@@ -57,6 +57,37 @@ class RemoteRepository {
         return movies
     }
 
+    fun getMovieById(movieId : Long) : LiveData<ApiResponse<ResultGetMovie?>?>{
+        EspressoIdlingResource.increment()
+
+        val movie = MutableLiveData<ApiResponse<ResultGetMovie?>?>()
+
+        API.networkApi().getMoviesById(movieId,BuildConfig.API_KEY)
+            .enqueue(object : Callback<ResultGetMovie>{
+                override fun onFailure(call: Call<ResultGetMovie>, t: Throwable) {
+                    networkLogging(t.localizedMessage)
+                    EspressoIdlingResource.decrement()
+                    ApiResponse.error("error",null)
+                }
+
+                override fun onResponse(
+                    call: Call<ResultGetMovie>,
+                    response: Response<ResultGetMovie>
+                ) {
+                    networkLogging(response.message())
+                    EspressoIdlingResource.decrement()
+                    if(response.isSuccessful){
+                        movie.postValue(ApiResponse.success(response.body()))
+                    }else{
+                        ApiResponse.empty("empty",null)
+                    }
+                }
+
+            })
+
+        return movie
+    }
+
     fun getPopularTvShows() : LiveData<ApiResponse<List<ResultTvShow>?>?>{
         EspressoIdlingResource.increment()
 
@@ -84,6 +115,37 @@ class RemoteRepository {
                 }
             })
         return tvShows
+    }
+
+    fun getTvShowById(tvShowId : Long) : LiveData<ApiResponse<ResultTvShow?>?>{
+        EspressoIdlingResource.increment()
+
+        val tvShow = MutableLiveData<ApiResponse<ResultTvShow?>?>()
+
+        API.networkApi().getTvShowById(tvShowId,BuildConfig.API_KEY)
+            .enqueue(object : Callback<ResultTvShow>{
+                override fun onFailure(call: Call<ResultTvShow>, t: Throwable) {
+                    networkLogging(t.localizedMessage)
+                    EspressoIdlingResource.decrement()
+                    ApiResponse.error("error",null)
+                }
+
+                override fun onResponse(
+                    call: Call<ResultTvShow>,
+                    response: Response<ResultTvShow>
+                ) {
+                    networkLogging(response.message())
+                    EspressoIdlingResource.decrement()
+                    if(response.isSuccessful){
+                        tvShow.postValue(ApiResponse.success(response.body()))
+                    }else{
+                        ApiResponse.empty("empty",null)
+                    }
+                }
+
+            })
+
+        return tvShow
     }
 
 }
