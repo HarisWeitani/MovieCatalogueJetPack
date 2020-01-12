@@ -11,6 +11,7 @@ import com.haris.weitani.moviecataloguejetpack.data.TvShow
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 import com.haris.weitani.moviecataloguejetpack.vo.Resource
+import org.jetbrains.annotations.TestOnly
 
 class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
 
@@ -30,6 +31,16 @@ class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
     }
     val tvShows: LiveData<Resource<ResultTvShow?>?>? = Transformations.switchMap(tvShowId){
         catalogueRepository.getTvShowsById(it)
+    }
+
+    @TestOnly
+    fun getTestMovie(movieId: Long) : LiveData<Resource<ResultGetMovie?>?>?{
+        return catalogueRepository.getMoviesById(movieId)
+    }
+
+    @TestOnly
+    fun getTestTvShows(tvShowId : Long) : LiveData<Resource<ResultTvShow?>?>?{
+        return catalogueRepository.getTvShowsById(tvShowId)
     }
 
 

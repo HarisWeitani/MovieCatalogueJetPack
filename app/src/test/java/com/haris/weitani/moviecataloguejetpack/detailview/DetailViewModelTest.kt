@@ -1,14 +1,22 @@
 package com.haris.weitani.moviecataloguejetpack.detailview
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
 import com.haris.weitani.moviecataloguejetpack.data.Movie
 import com.haris.weitani.moviecataloguejetpack.data.TvShow
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
+import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
+import com.haris.weitani.moviecataloguejetpack.utils.FakeDummyData2
+import com.haris.weitani.moviecataloguejetpack.vo.Resource
 import org.junit.Before
 
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito
 
 class DetailViewModelTest {
 
@@ -16,35 +24,40 @@ class DetailViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private lateinit var detailViewModel: DetailViewModel
-    private lateinit var dummyMovie : Movie
-    private lateinit var dummyTvShow : TvShow
+    private var catalogueRepository = Mockito.mock(CatalogueRepository::class.java)
+    private var dummyMovieId: Long = 419704
+    private var dummyTvShowId: Long = 44217
 
     @Before
     fun setUp() {
-        detailViewModel = DetailViewModel()
-        dummyMovie = Movie(1, R.drawable.poster_alita,"Alita Battle Angel", R.string.alita_battle_angel)
-        dummyTvShow = TvShow(1,R.drawable.poster_doom_patrol,"Doom Patrol",R.string.doom_patrol)
+        detailViewModel = DetailViewModel(catalogueRepository)
     }
 
     @Test
     fun getMovie() {
-        detailViewModel.setMovieById(1)
-        detailViewModel.getMovieById().observeForever {
-            assertEquals(dummyMovie.id,it.id)
-            assertEquals(dummyMovie.picture,it.picture)
-            assertEquals(dummyMovie.name,it.name)
-            assertEquals(dummyMovie.desc,it.desc)
-        }
+        val resource : Resource<ResultGetMovie?> = Resource.success(FakeDummyData2.generateDummyMovies()[0])
+        val dummyCourse : MutableLiveData<Resource<ResultGetMovie?>> = MutableLiveData()
+        val observer: Observer<Resource<ResultGetMovie?>?> = Mockito.mock(Observer::class.java) as Observer<Resource<ResultGetMovie?>?>
+
+        dummyCourse.postValue(resource)
+
+        Mockito.`when`(catalogueRepository.getMoviesById(dummyMovieId)).thenReturn(dummyCourse)
+
+        detailViewModel.getTestMovie(dummyMovieId)?.observeForever(observer)
+        Mockito.verify(observer).onChanged(resource)
     }
 
     @Test
     fun getTvShow() {
-        detailViewModel.setTvShowById(1)
-        detailViewModel.getTvShowById().observeForever{
-            assertEquals(dummyTvShow.id,it.id)
-            assertEquals(dummyTvShow.picture,it.picture)
-            assertEquals(dummyTvShow.name,it.name)
-            assertEquals(dummyTvShow.desc,it.desc)
-        }
+        val resource : Resource<ResultTvShow?> = Resource.success(FakeDummyData2.generateDummyTvShows()[0])
+        val dummyCourse : MutableLiveData<Resource<ResultTvShow?>> = MutableLiveData()
+        val observer: Observer<Resource<ResultTvShow?>?> = Mockito.mock(Observer::class.java) as Observer<Resource<ResultTvShow?>?>
+
+        dummyCourse.postValue(resource)
+
+        Mockito.`when`(catalogueRepository.getTvShowsById(dummyTvShowId)).thenReturn(dummyCourse)
+
+        detailViewModel.getTestTvShows(dummyTvShowId)?.observeForever(observer)
+        Mockito.verify(observer).onChanged(resource)
     }
 }
