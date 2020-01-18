@@ -14,6 +14,7 @@ import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 import com.haris.weitani.moviecataloguejetpack.vo.Status
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_tv_show_detail_view.*
+import org.jetbrains.anko.doAsync
 
 class TvShowDetailView : AppCompatActivity() {
 
@@ -72,6 +73,36 @@ class TvShowDetailView : AppCompatActivity() {
 
         tv_tvshow_title.text = tvShow.name
         tv_tvshow_description.text = tvShow.overview
+
+        if(tvShow.is_favorite == null){
+            tvShow.is_favorite = false
+        }
+
+        if(tvShow.is_favorite!!){
+            iv_favorite.setImageResource(R.drawable.ic_favorite_red_24dp)
+        }else{
+            iv_favorite.setImageResource(R.drawable.ic_favorite_border_red_24dp)
+        }
+
+        iv_favorite.setOnClickListener {
+            validateFavorite()
+        }
+    }
+
+    private fun validateFavorite(){
+        if(tvShow.is_favorite!!){
+            iv_favorite.setImageResource(R.drawable.ic_favorite_border_red_24dp)
+            tvShow.is_favorite = false
+            doAsync {
+                detailViewModel.removeTvShowFavorite(tvShow)
+            }
+        }else{
+            iv_favorite.setImageResource(R.drawable.ic_favorite_red_24dp)
+            tvShow.is_favorite = true
+            doAsync {
+                detailViewModel.addTvShowFavorite(tvShow)
+            }
+        }
     }
 
     private fun isLoading(status : Boolean){

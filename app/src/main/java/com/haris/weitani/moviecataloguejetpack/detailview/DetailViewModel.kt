@@ -33,6 +33,22 @@ class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
         catalogueRepository.getTvShowsById(it)
     }
 
+    internal fun addMovieFavorite(data : ResultGetMovie){
+        catalogueRepository.addFavMovie(data)
+    }
+
+    internal fun removeMovieFavorite(data : ResultGetMovie){
+        catalogueRepository.removeFavMovie(data)
+    }
+
+    internal fun addTvShowFavorite(data: ResultTvShow){
+        catalogueRepository.addFavTvShow(data)
+    }
+
+    internal fun removeTvShowFavorite(data : ResultTvShow){
+        catalogueRepository.removeFavTvShow(data)
+    }
+
     @TestOnly
     fun getTestMovie(movieId: Long) : LiveData<Resource<ResultGetMovie?>?>?{
         return catalogueRepository.getMoviesById(movieId)
@@ -42,36 +58,4 @@ class DetailViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
     fun getTestTvShows(tvShowId : Long) : LiveData<Resource<ResultTvShow?>?>?{
         return catalogueRepository.getTvShowsById(tvShowId)
     }
-
-
-    /**
-     * Deprecated
-     */
-/*    private val movie = MutableLiveData<Movie>()
-    private val tvShow = MutableLiveData<TvShow>()
-
-    internal fun setMovieById(movieId: Int) {
-        for (data in DummyData.generateDummyMovies()) {
-            if (data.id == movieId) {
-                movie.postValue(data)
-            }
-        }
-    }
-
-    internal fun getMovieById(): LiveData<Movie> {
-        return movie
-    }
-
-    internal fun setTvShowById(tvShowId: Int) {
-        for (data in DummyData.generateDummyTvShows()) {
-            if (data.id == tvShowId) {
-                tvShow.postValue(data)
-            }
-        }
-    }
-
-    internal fun getTvShowById(): LiveData<TvShow> {
-        return tvShow
-    }*/
-
 }

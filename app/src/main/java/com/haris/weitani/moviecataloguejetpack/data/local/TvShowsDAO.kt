@@ -16,7 +16,7 @@ interface TvShowsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTvShows(vararg tvShows: ResultTvShow)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     fun updateTvSHows(vararg tvShows: ResultTvShow)
 
     @Delete

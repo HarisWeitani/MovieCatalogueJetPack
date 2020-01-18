@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
+import kotlinx.coroutines.GlobalScope
 import org.jetbrains.anko.doAsync
 
 class LocalRepository(mMovieDao: MovieDAO, mTvShowsDAO: TvShowsDAO) {
@@ -120,7 +121,7 @@ class LocalRepository(mMovieDao: MovieDAO, mTvShowsDAO: TvShowsDAO) {
                 popularity = data.popularity,
                 poster_path = data.poster_path,
                 name = data.name,
-                is_favorite = true
+                is_favorite = false
             )
         )
     }

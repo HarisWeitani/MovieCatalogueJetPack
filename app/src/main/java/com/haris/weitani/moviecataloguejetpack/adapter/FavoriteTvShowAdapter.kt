@@ -17,8 +17,6 @@ import org.jetbrains.anko.intentFor
 class FavoriteTvShowAdapter : PagedListAdapter<ResultTvShow, FavoriteTvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK)
 {
 
-    private var listTvShow = ArrayList<ResultTvShow>()
-
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ResultTvShow>() {
             override fun areItemsTheSame(oldItem: ResultTvShow, newItem: ResultTvShow) =
@@ -38,26 +36,24 @@ class FavoriteTvShowAdapter : PagedListAdapter<ResultTvShow, FavoriteTvShowAdapt
             )
         )
 
-    override fun getItemCount(): Int = listTvShow.size
-
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        holder.bind(listTvShow[position])
+        holder.bind(getItem(position))
     }
 
     inner class TvShowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: ResultTvShow) {
+        fun bind(data: ResultTvShow?) {
             with(itemView) {
 
                 Picasso.get()
-                    .load(GlobalVal.POSTER_BASE_URL + data.poster_path)
+                    .load(GlobalVal.POSTER_BASE_URL + data?.poster_path)
                     .into(iv_tvshow_poster)
 
-                tv_tvshow_title.text = data.name
-                tv_tvshow_description.text = data.overview
+                tv_tvshow_title.text = data?.name
+                tv_tvshow_description.text = data?.overview
 
                 itemView.setOnClickListener {
                     context.startActivity(
-                        context.intentFor<TvShowDetailView>(GlobalVal.SELECTED_TV_SHOW to data.id)
+                        context.intentFor<TvShowDetailView>(GlobalVal.SELECTED_TV_SHOW to data?.id)
                     )
                 }
             }

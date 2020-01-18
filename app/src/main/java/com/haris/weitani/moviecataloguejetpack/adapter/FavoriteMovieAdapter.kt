@@ -17,8 +17,6 @@ import org.jetbrains.anko.intentFor
 
 class FavoriteMovieAdapter : PagedListAdapter<ResultGetMovie,FavoriteMovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
-    private var listMovie = ArrayList<ResultGetMovie>()
-
     companion object {
         private val DIFF_CALLBACK = object: DiffUtil.ItemCallback<ResultGetMovie>() {
             override fun areItemsTheSame(oldItem: ResultGetMovie, newItem: ResultGetMovie) =
@@ -39,26 +37,24 @@ class FavoriteMovieAdapter : PagedListAdapter<ResultGetMovie,FavoriteMovieAdapte
             )
         )
 
-    override fun getItemCount(): Int = listMovie.size
-
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(listMovie[position])
+        holder.bind(getItem(position))
     }
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: ResultGetMovie) {
+        fun bind(data: ResultGetMovie?) {
             with(itemView) {
 
                 Picasso.get()
-                    .load(GlobalVal.POSTER_BASE_URL + data.poster_path)
+                    .load(GlobalVal.POSTER_BASE_URL + data?.poster_path)
                     .into(iv_movie_poster)
 
-                tv_movie_title.text = data.title
-                tv_movie_description.text = data.overview
+                tv_movie_title.text = data?.title
+                tv_movie_description.text = data?.overview
 
                 itemView.setOnClickListener {
                     context.startActivity(
-                        context.intentFor<MovieDetailView>(GlobalVal.SELECTED_MOVIE to data.id)
+                        context.intentFor<MovieDetailView>(GlobalVal.SELECTED_MOVIE to data?.id)
                     )
                 }
             }

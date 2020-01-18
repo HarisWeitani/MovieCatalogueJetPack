@@ -15,6 +15,7 @@ import com.haris.weitani.moviecataloguejetpack.vo.Status
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.rv_layout_item_movie.view.*
+import org.jetbrains.anko.doAsync
 
 class MovieDetailView : AppCompatActivity() {
 
@@ -71,6 +72,37 @@ class MovieDetailView : AppCompatActivity() {
             .into(iv_poster_image)
         tv_movie_title.text = movieData.title
         tv_movie_description.text = movieData.overview
+
+        if(movieData.is_favorite == null){
+            movieData.is_favorite = false
+        }
+
+        if(movieData.is_favorite!!){
+            iv_favorite.setImageResource(R.drawable.ic_favorite_red_24dp)
+        }else{
+            iv_favorite.setImageResource(R.drawable.ic_favorite_border_red_24dp)
+        }
+
+        iv_favorite.setOnClickListener {
+            validateFavorite()
+        }
+
+    }
+
+    private fun validateFavorite(){
+        if(movieData.is_favorite!!){
+            iv_favorite.setImageResource(R.drawable.ic_favorite_border_red_24dp)
+            movieData.is_favorite = false
+            doAsync {
+                detailViewModel.removeMovieFavorite(movieData)
+            }
+        }else{
+            iv_favorite.setImageResource(R.drawable.ic_favorite_red_24dp)
+            movieData.is_favorite = true
+            doAsync {
+                detailViewModel.addMovieFavorite(movieData)
+            }
+        }
     }
 
     private fun isLoading(status : Boolean){
