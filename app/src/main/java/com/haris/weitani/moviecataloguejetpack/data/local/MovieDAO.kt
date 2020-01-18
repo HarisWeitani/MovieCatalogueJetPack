@@ -1,6 +1,7 @@
 package com.haris.weitani.moviecataloguejetpack.data.local
 
 import android.database.Cursor
+import androidx.paging.DataSource
 import androidx.room.*
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 
@@ -11,12 +12,12 @@ interface MovieDAO {
     fun getAllMovie() : List<ResultGetMovie>
 
     @Query("SELECT * FROM ResultGetMovie WHERE is_favorite = 1")
-    fun getAllFavMovie() : List<ResultGetMovie>
+    fun getAllFavMovie() : DataSource.Factory<Int,ResultGetMovie>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(vararg movie : ResultGetMovie)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateMovie(vararg movie : ResultGetMovie)
 
     @Delete

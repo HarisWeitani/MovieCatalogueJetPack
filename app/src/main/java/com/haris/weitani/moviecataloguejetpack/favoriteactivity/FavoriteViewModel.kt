@@ -25,9 +25,9 @@ class FavoriteViewModel : ViewModel() {
         if (movieDB == null) {
             movieDB = MovieDatabase.getDatabase(context)
         }
-        doAsync {
-            listMovie.postValue(movieDB.movieDao().getAllFavMovie() as ArrayList<ResultGetMovie>?)
-        }
+//        doAsync {
+//            listMovie.postValue(movieDB.movieDao().getAllFavMovie() as ArrayList<ResultGetMovie>?)
+//        }
     }
 
     internal fun getMovie(): LiveData<ArrayList<ResultGetMovie>> {

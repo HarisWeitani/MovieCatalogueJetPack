@@ -1,6 +1,8 @@
 package com.haris.weitani.moviecataloguejetpack.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.haris.weitani.moviecataloguejetpack.common.AppExecutors
 import com.haris.weitani.moviecataloguejetpack.data.local.LocalRepository
 import com.haris.weitani.moviecataloguejetpack.data.remote.ApiResponse
@@ -8,7 +10,6 @@ import com.haris.weitani.moviecataloguejetpack.data.remote.RemoteRepository
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 import com.haris.weitani.moviecataloguejetpack.vo.Resource
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CatalogueRepository(
@@ -135,6 +136,30 @@ class CatalogueRepository(
             }
 
         }.asLiveData()
+    }
+
+    override fun getAllFavMovies(): LiveData<PagedList<ResultGetMovie>> {
+        return LivePagedListBuilder(localRepository.getFavMoviesPaged(),10).build()
+    }
+
+    override fun addFavMovie(data: ResultGetMovie) {
+        localRepository.addFavMovie(data)
+    }
+
+    override fun removeFavMovie(data: ResultGetMovie) {
+        localRepository.removeFavMovie(data)
+    }
+
+    override fun getAllFavTvShows(): LiveData<PagedList<ResultTvShow>> {
+        return LivePagedListBuilder(localRepository.getFavTvShowsPaged(),10).build()
+    }
+
+    override fun addFavTvShow(data: ResultTvShow) {
+        localRepository.addFavTvShow(data)
+    }
+
+    override fun removeFavTvShow(data: ResultTvShow) {
+        localRepository.removeFavTvShow(data)
     }
 
 }

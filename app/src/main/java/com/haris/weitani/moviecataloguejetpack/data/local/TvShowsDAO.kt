@@ -1,5 +1,6 @@
 package com.haris.weitani.moviecataloguejetpack.data.local
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 
@@ -10,12 +11,12 @@ interface TvShowsDAO {
     fun getAllTvShows() : List<ResultTvShow>
 
     @Query("SELECT * FROM ResultTvShow WHERE is_favorite = 1")
-    fun getAllFavTvShows() : List<ResultTvShow>
+    fun getAllFavTvShows() : DataSource.Factory<Int,ResultTvShow>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTvShows(vararg tvShows: ResultTvShow)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTvSHows(vararg tvShows: ResultTvShow)
 
     @Delete
