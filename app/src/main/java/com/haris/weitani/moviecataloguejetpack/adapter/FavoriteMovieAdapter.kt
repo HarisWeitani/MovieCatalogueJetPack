@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_layout_item_movie.view.*
 import org.jetbrains.anko.intentFor
 
-class FavoriteMovieAdapter() : PagedListAdapter<ResultGetMovie,FavoriteMovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class FavoriteMovieAdapter : PagedListAdapter<ResultGetMovie,FavoriteMovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     private var listMovie = ArrayList<ResultGetMovie>()
 
@@ -63,11 +63,5 @@ class FavoriteMovieAdapter() : PagedListAdapter<ResultGetMovie,FavoriteMovieAdap
                 }
             }
         }
-    }
-
-    fun setMovieData(items: ArrayList<ResultGetMovie>) {
-        listMovie.clear()
-        listMovie.addAll(items)
-        notifyDataSetChanged()
     }
 }

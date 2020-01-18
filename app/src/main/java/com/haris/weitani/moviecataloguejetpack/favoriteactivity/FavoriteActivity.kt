@@ -25,8 +25,6 @@ class FavoriteActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        FavoriteViewModel.movieDB = MovieDatabase.getDatabase(this)
-        FavoriteViewModel.tvshowDB = TVShowsDatabase.getDatabase(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

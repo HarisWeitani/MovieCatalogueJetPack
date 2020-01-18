@@ -41,7 +41,7 @@ class MovieListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         isLoading(true)
         if (activity != null) {
-            mainViewModel = obtainViewModel(activity!!)
+            mainViewModel = obtainViewModel(requireActivity())
             adapter = MovieAdapter()
             adapter.notifyDataSetChanged()
 

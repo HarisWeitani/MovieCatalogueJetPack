@@ -1,22 +1,35 @@
 package com.haris.weitani.moviecataloguejetpack.favoriteactivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.ViewModelFactory
+import com.haris.weitani.moviecataloguejetpack.adapter.FavoriteMovieAdapter
 import com.haris.weitani.moviecataloguejetpack.adapter.MovieAdapter
+import com.haris.weitani.moviecataloguejetpack.mainactivity.MovieListFragment
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class FavoriteMovieListFragment : Fragment() {
 
-    private lateinit var adapter: MovieAdapter
+    private lateinit var adapter: FavoriteMovieAdapter
     private lateinit var favViewModel: FavoriteViewModel
+
+    companion object {
+
+        fun newInstance(): Fragment = MovieListFragment()
+
+        private fun obtainViewModel(activity: FragmentActivity): FavoriteViewModel {
+            val factory: ViewModelFactory? = ViewModelFactory.getInstance(activity.application)
+            return ViewModelProviders.of(activity, factory).get(FavoriteViewModel::class.java)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,40 +38,28 @@ class FavoriteMovieListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initMovieRVList()
-        initMainViewModel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        initMainViewModel()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity != null) {
+            favViewModel = obtainViewModel(requireActivity())
+            showLoading(true)
+            initMovieRVList()
+        }
     }
 
     private fun initMovieRVList() {
 
-        adapter = MovieAdapter()
+        adapter = FavoriteMovieAdapter()
         adapter.notifyDataSetChanged()
+
+        favViewModel.getFavMovies().observe(this, Observer {
+            adapter.submitList(it)
+            showLoading(false)
+        })
 
         rv_movie_list.layoutManager = LinearLayoutManager(context)
         rv_movie_list.adapter = adapter
-
-    }
-
-    private fun initMainViewModel() {
-        favViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            FavoriteViewModel::class.java)
-        favViewModel.setMovie(requireContext())
-        showLoading(true)
-
-        favViewModel.getMovie().observe(this, Observer {
-            if (it != null) {
-                adapter.setMovieData(it)
-                showLoading(false)
-            }
-        })
+        rv_movie_list.setHasFixedSize(true)
     }
 
     private fun showLoading(isLoading: Boolean) {

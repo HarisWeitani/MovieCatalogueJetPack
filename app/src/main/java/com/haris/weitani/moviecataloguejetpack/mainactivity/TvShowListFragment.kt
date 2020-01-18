@@ -42,7 +42,7 @@ class TvShowListFragment : Fragment() {
         isLoading(true)
         if (activity != null) {
 
-            mainViewModel = obtainViewModel(activity!!)
+            mainViewModel = obtainViewModel(requireActivity())
 
             adapter = TvShowAdapter()
             adapter.notifyDataSetChanged()

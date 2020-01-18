@@ -6,18 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haris.weitani.moviecataloguejetpack.R
+import com.haris.weitani.moviecataloguejetpack.ViewModelFactory
+import com.haris.weitani.moviecataloguejetpack.adapter.FavoriteTvShowAdapter
 import com.haris.weitani.moviecataloguejetpack.adapter.TvShowAdapter
+import com.haris.weitani.moviecataloguejetpack.mainactivity.MovieListFragment
 import kotlinx.android.synthetic.main.fragment_tv_show_list.*
 import kotlinx.android.synthetic.main.fragment_tv_show_list.progressBar
 
 class FavoriteTvShowListFragment : Fragment() {
 
-    private lateinit var adapter : TvShowAdapter
+    private lateinit var adapter: FavoriteTvShowAdapter
     private lateinit var favViewModel: FavoriteViewModel
+
+    companion object {
+
+        fun newInstance(): Fragment = MovieListFragment()
+
+        private fun obtainViewModel(activity: FragmentActivity): FavoriteViewModel {
+            val factory: ViewModelFactory? = ViewModelFactory.getInstance(activity.application)
+            return ViewModelProviders.of(activity, factory).get(FavoriteViewModel::class.java)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,37 +41,29 @@ class FavoriteTvShowListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tv_show_list, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
-        initfavViewModel()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity != null) {
+            favViewModel = obtainViewModel(requireActivity())
+            showLoading(true)
+            initTvShowRVList()
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun initTvShowRVList() {
 
-        initTvShowRVList()
-        initfavViewModel()
-    }
+        adapter = FavoriteTvShowAdapter()
+        adapter.notifyDataSetChanged()
 
-    private fun initTvShowRVList(){
-        rv_tvshow_list.layoutManager = LinearLayoutManager(context)
-        adapter = TvShowAdapter()
-        rv_tvshow_list.adapter = adapter
-
-    }
-
-    private fun initfavViewModel(){
-        favViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            FavoriteViewModel::class.java)
-        favViewModel.setTvShows(requireContext())
-        showLoading(true)
-
-        favViewModel.getTvShows().observe(this, Observer {
-            if( it != null ){
-                adapter.setTvShowData(it)
-                showLoading(false)
-            }
+        favViewModel.getFavTvShows().observe(this, Observer {
+            adapter.submitList(it)
+            showLoading(false)
         })
+
+        rv_tvshow_list.layoutManager = LinearLayoutManager(context)
+        rv_tvshow_list.adapter = adapter
+        rv_tvshow_list.setHasFixedSize(true)
+
     }
 
     private fun showLoading(isLoading: Boolean) {

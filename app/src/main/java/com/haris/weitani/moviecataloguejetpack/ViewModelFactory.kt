@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
 import com.haris.weitani.moviecataloguejetpack.detailview.DetailViewModel
 import com.haris.weitani.moviecataloguejetpack.di.Injection
+import com.haris.weitani.moviecataloguejetpack.favoriteactivity.FavoriteViewModel
 import com.haris.weitani.moviecataloguejetpack.mainactivity.MainViewModel
 
 class ViewModelFactory (catalogueRepository: CatalogueRepository) :
@@ -18,6 +19,8 @@ class ViewModelFactory (catalogueRepository: CatalogueRepository) :
             return MainViewModel(mCatalogueRepository) as T
         } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(mCatalogueRepository) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+            return FavoriteViewModel(mCatalogueRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
