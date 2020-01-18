@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".favoriteactivity.FavoriteActivity"/>
 
         <activity android:name=".detailview.TvShowDetailView" />
         <activity android:name=".detailview.MovieDetailView" />
