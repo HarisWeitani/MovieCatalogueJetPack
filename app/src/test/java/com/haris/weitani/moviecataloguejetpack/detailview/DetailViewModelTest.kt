@@ -3,17 +3,12 @@ package com.haris.weitani.moviecataloguejetpack.detailview
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.haris.weitani.moviecataloguejetpack.R
 import com.haris.weitani.moviecataloguejetpack.data.CatalogueRepository
-import com.haris.weitani.moviecataloguejetpack.data.Movie
-import com.haris.weitani.moviecataloguejetpack.data.TvShow
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultTvShow
 import com.haris.weitani.moviecataloguejetpack.utils.FakeDummyData2
 import com.haris.weitani.moviecataloguejetpack.vo.Resource
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito

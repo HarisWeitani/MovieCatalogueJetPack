@@ -29,33 +29,4 @@ class MainViewModel(mCatalogueRepository: CatalogueRepository) : ViewModel() {
         return catalogueRepository.getPopularTvShows()
     }
 
-    /**
-     * Deprecated
-     */
-/*    private val movieList = MutableLiveData<ArrayList<Movie>>()
-    private val tvShowList = MutableLiveData<ArrayList<TvShow>>()
-
-    internal fun setMovie(){
-        movieList.postValue(initMovieDummyData())
-    }
-
-    internal fun getMovie() : LiveData<ArrayList<Movie>>{
-        return movieList
-    }
-
-    private fun initMovieDummyData() : ArrayList<Movie>{
-        return DummyData.generateDummyMovies()
-    }
-
-    internal fun setTvShow(){
-        tvShowList.postValue(initTvShowDummyData())
-    }
-
-    internal fun getTvShow() : LiveData<ArrayList<TvShow>>{
-        return tvShowList
-    }
-
-    private fun initTvShowDummyData() : ArrayList<TvShow>{
-        return DummyData.generateDummyTvShows()
-    }*/
 }
