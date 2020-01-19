@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.haris.weitani.moviecataloguejetpack.data.remote.ResultGetMovie
 
 @Database(entities = arrayOf(ResultGetMovie::class), version = 1, exportSchema = false)
-public abstract class MovieDatabase : RoomDatabase(){
+abstract class MovieDatabase : RoomDatabase(){
 
     abstract fun movieDao() : MovieDAO
 
